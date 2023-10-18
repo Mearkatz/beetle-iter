@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["beetle"]
 description = "A collection of basic iterators."
 license = "MIT"
-repository = "https://github.com/Mearkats/beetle_iter"
+repository = "https://github.com/Mearkatz/beetle-iter"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
