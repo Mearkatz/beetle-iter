@@ -13,7 +13,7 @@ pub mod step_range {
             }
 
             impl<const STEP: $t> $name<STEP> {
-                /// Creates a new StepRange
+                /// Creates a new StepRange.
                 pub fn new(start: $t, stop: $t) -> Self {
                     Self {
                         start,
@@ -37,12 +37,12 @@ pub mod step_range {
                 type Item = $t;
 
                 fn next(&mut self) -> Option<Self::Item> {
-                    if self.start > self.stop {
-                        None
-                    } else {
+                    if self.state <= self.stop {
                         let current_state = self.state;
                         self.state += STEP;
                         Some(current_state)
+                    } else {
+                        None
                     }
                 }
             }
