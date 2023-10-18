@@ -5,6 +5,7 @@ pub mod step_range {
     macro_rules! declare_step_range {
         ($name: ident, $t: ty) => {
             /// A range with a constant step size
+            #[derive(Debug, Clone)]
             pub struct $name<const STEP: $t> {
                 start: $t,
                 stop: $t,
@@ -39,8 +40,9 @@ pub mod step_range {
                     if self.start > self.stop {
                         None
                     } else {
+                        let current_state = self.state;
                         self.state += STEP;
-                        Some(self.state)
+                        Some(current_state)
                     }
                 }
             }
@@ -62,4 +64,19 @@ pub mod step_range {
 }
 
 #[cfg(test)]
-mod tests {}
+mod tests {
+
+    #[test]
+    fn readme_step_range_examples() {
+        use crate::step_range::StepRangeU64;
+
+        // The odd positive integers from 1 to 1000 the traditional way.
+        let odd_numbers_std = (1..1000).step_by(2);
+
+        // The odd positive integers from 1 to 1000 with a constant step size.
+        let odd_numbers = StepRangeU64::<2>::new(1, 1000);
+
+        let ans = odd_numbers.zip(odd_numbers_std).all(|(a, b)| a == b);
+        assert!(ans);
+    }
+}
